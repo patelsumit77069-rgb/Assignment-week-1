@@ -1,0 +1,21 @@
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
+# Load dataset
+df = pd.read_csv("datasets_mri.csv")
+
+# Dataset summary
+print(df.info())
+print(df.describe())
+
+# Handle missing values
+df['Age'].fillna(df['Age'].mean(), inplace=True)
+
+# Label Encoding
+le = LabelEncoder()
+df['Gender'] = le.fit_transform(df['Gender'])
+
+# One-Hot Encoding
+df = pd.get_dummies(df, columns=['City'])
+
+print(df.head())
